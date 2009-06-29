@@ -20,21 +20,21 @@
 
 バージョン管理システムはこれとまったく同じだ。ファイルやディレクトリを管理するための便利なインターフェースがあって、どんなに頻繁にセーブしたっていいし、そのセーブデータはどれでも後からロードできる。ゲームとは違って、ディスクをうまく節約するようにもできてる。ふつうは、バージョンごとに変わるのはいくつかのファイルだけなので、ファイル全体のコピーの代わりに、差分だけを保存することで空間が節約できる。
 
-=== Distributed Control ===
+=== 分散管理 ===
 
-Now imagine a very difficult computer game. So difficult to finish that many experienced gamers all over the world decide to team up and share their saved games to try to beat it. Speedruns are real-life examples: players specializing in different levels of the same game collaborate to produce amazing results.
+すごく難しいゲームがあったとする。あまりにも難しすぎるので、手練のプレイヤーたちが世界中からあつまってチームをつくり、セーブデータを共有して立ち向かおうとするような場合を想像してほしい。ゲームの早解きなんかがその例だ。同じゲームのことなる部分の得意なプレイヤーたちが協力して、びっくりするような成果を上げる。
 
-How would you set up a system so they can get at each other's saves easily? And upload new ones?
+たがいのセーブデータを簡単にもらったりあげたりするようなシステムはどうやって作ったらいいんだろう？
 
-In the old days, every project used centralized version control. A server somewhere held all the saved games. Nobody else did. Every player kept at most a few saved games on their machine. When a player wanted to make progress, they'd download the latest save from the main server, play a while, save and upload back to the server for everyone else to use.
+昔は、どんなプロジェクトでも中央集権的なバージョン管理をしていた。どこかのサーバがすべてのセーブデータを抱えている。プレイヤーはせいぜいいくつかのセーブデータをそれぞれのマシンに持っているだけ。セーブデータを更新したいときは、まず中央のサーバから最新のデータをもってきて、何時間か遊んでセーブする。それを中央サーバにアップロードし直すことで、みんなが使えるようになる。
 
-What if a player wanted to get an older saved game for some reason? Maybe the current saved game is in an unwinnable state because somebody forgot to pick up an object back in level three, and they want to find the latest saved game where the game can still be completed. Or maybe they want to compare two older saved games to see how much work a particular player did.
+もし何かの理由で、古いセーブデータを使いたくなったらどうだろう？ もしかしたら、今のセーブデータは、誰かが３階にあるアイテムをゲットし忘れたせいですでにハマリ状態になっているかもしれない。だからゲームが続けられる最新の状態のセーブデータが欲しい。もしくは、ふたつのセーブデータを比べることで、あるプレイヤーがどれだけの仕事をしたのかを見たいかもしれない。
 
-There could be many reasons to want to see an older revision, but the outcome is the same. They have to ask the central server for that old saved game. The more saved games they want, the more they need to communicate.
+古いバージョンが欲しくなる理由はいくつもある。でも顛末はいつも同じだ。いつだって中央サーバに古いセーブデータをとりにいかなきゃいけない。セーブデータが増えれば、通信も増える。
 
-The new generation of version control systems, of which Git is a member, are known as distributed systems, and can be thought of as a generalization of centralized systems. When players download from the main server they get every saved game, not just the latest one. It's as if they're mirroring the central server.
+新世代のバージョン管理システム（たとえばGit）は分散システムとして知られている。これは、中央集権型のシステムを一般化したものと考えることもできる。プレイヤーが中央サーバからダウンロードするデータには、すべてのセーブデータがはいっている。最新のだけじゃない。中央サーバをミラーリングしてるみたいなものだ。
 
-This initial cloning operation can be expensive, especially if there's a long history, but it pays off in the long run. One immediate benefit is that when an old save is desired for any reason, communication with the central server is unnecessary.
+最初にコピーしてくる操作は、とくに長い履歴があるような場合にはちょっと処理時間がかかるかもしれない。でも、そんなのはすぐ報われる。たとえば、古いセーブデータが欲しくなったら、中央サーバへの通信なしにいつでも手に入れることができる。それはすぐ得られる利点だ。
 
 ==== A Silly Superstition ====
 
