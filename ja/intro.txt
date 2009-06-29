@@ -10,15 +10,15 @@
 
 でもそうすると古いバージョンは上書きされちゃう。セーブできるスロットが一つしかない古いゲームみたいなもので、確かにセーブできるけど、それより前の状態には決して戻れない。それって困りものだ。もしかすると、前にセーブした時点はそのゲームの中でもとびきりに楽しい、もういっかいやりたいと思うくらいのところかもしれない。もっと悪い場合、いまのセーブ内容は実はハマリ状態になっていて、もういちど最初からやり直さないといけないかもしれない。
 
-=== Version Control ===
+=== バージョン管理 ===
 
-When editing, you can "Save As..." a different file, or copy the file somewhere first before saving if you want to savour old versions. You can compress them too to save space. This is a primitive and labour-intensive form of version control. Computer games improved on this long ago, many of them providing multiple automatically timestamped save slots.
+文書を編集するときは、「別名で保存」するか、最初にコピーをとっておくことで、古いバージョンのファイルをずっととっておくことができる。ディスクを節約したければ圧縮してもいい。これが原始的で労働集約型のバージョン管理だ。ゲームはこんな地点はとっくに通過してる。セーブスロットは複数あって、日時が自動的に記録されるのが普通だ。
 
-Let's make the problem slightly tougher. Say you have a bunch of files that go together, such as source code for a project, or files for a website. Now if you want to keep an old version you have to archive a whole directory. Keeping many versions around by hand is inconvenient, and quickly becomes expensive.
+状況をちょっとだけ難しくしてみよう。たとえば、互いに関連のあるファイル群があるとする。プロジェクトのソースコードとか、ウェブサイトのファイルとかだ。もしそれらの古いバージョンをとっておきたいとしたら、ディレクトリ全部を保存しておかないといけない。いくつものバージョンを手で管理するのは不便だし、すぐに大変になる。
 
-With some computer games, a saved game really does consist of a directory full of files. These games hide this detail from the player and present a convenient interface to manage different versions of this directory.
+いくつかのゲームでは、セーブデータは本当にディレクトリとファイルでできてる。だけど、そういう内部の詳細はプレイヤーからは隠されていて、用意された便利なインターフェースからいくつも異なるバージョンのディレクトリを管理できるようになっている。
 
-Version control systems are no different. They all have nice interfaces to manage a directory of stuff. You can save the state of the directory every so often, and you can load any one of the saved states later on. Unlike most computer games, they're usually smart about conserving space. Typically, only a few files change between version to version, and not by much. Storing the differences instead of entire new copies saves room.
+バージョン管理システムはこれとまったく同じだ。ファイルやディレクトリを管理するための便利なインターフェースがあって、どんなに頻繁にセーブしたっていいし、そのセーブデータはどれでも後からロードできる。ゲームとは違って、ディスクをうまく節約するようにもできてる。ふつうは、バージョンごとに変わるのはいくつかのファイルだけなので、ファイル全体のコピーの代わりに、差分だけを保存することで空間が節約できる。
 
 === Distributed Control ===
 
