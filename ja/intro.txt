@@ -36,25 +36,22 @@
 
 最初にコピーしてくる操作は、とくに長い履歴があるような場合にはちょっと処理時間がかかるかもしれない。でも、そんなのはすぐ報われる。たとえば、古いセーブデータが欲しくなったら、中央サーバへの通信なしにいつでも手に入れることができる。それはすぐ得られる利点だ。
 
-==== A Silly Superstition ====
+==== ばかげた迷信 ====
 
-A popular misconception is that distributed systems are ill-suited for projects requiring an official central repository. Nothing could be further from the truth. Photographing someone does not cause their soul to be stolen. Similarly, cloning the master repository does not diminish its importance.
+よくある誤解は、分散システムは公式の中央レポジトリを持つプロジェクトには向かないってものだ。これは真実からはほど遠い。写真をとっても魂が抜かれないのと一緒で、中央レポジトリーはコピーが作られてもその重要性はちっとも減らない。
 
-A good first approximation is that anything a centralized version control system can do, a well-designed distributed system can do better. Network resources are simply costlier than local resources. While we shall later see there are drawbacks to a distributed approach, one is less likely to make erroneous comparisons with this rule of thumb.
+おおまかにいえば、中央集権的なバージョン管理でできることは、よくできた分散システムならもっとよくできる。ネットワーク資源はローカルよりも単純に高くつく。後で見るように分散システムにも弱点はあるんだけど、でもどう大雑把にみてもその優位がくつがえることはない。
 
-A small project may only need a fraction of the features offered by such a
-system, but saying you should use systems that don't scale well when your
-project is tiny is like saying you should use Roman numerals for calculations
-involving small numbers.
+小さなプロジェクトなら、そういうシステムのごく一部だけが必要になるかもしれない。でも、小さなプロジェクトだからといってそれにしか向かないシステムを使うのは、小さな数の計算だからといってローマ数字を使うようなものだ。
 
-Moreover, your project may grow beyond your original expectations. Using Git from the outset is like carrying a Swiss army knife even though you mostly use it to open bottles. On the day you desperately need a screwdriver you'll be glad you have more than a plain bottle-opener.
+それに、プロジェクトが当初の想像を超えて大きくなるかもしれない。最初からGitを使った方がいい。それは、たとえふだんは缶のふたを開けるぐらいしか用がなくても、スイス製のアーミーナイフを携帯しておくのに似ている。いつかねじ回しが必要になったときに、自分の道具がただの缶切りでなくてよかったと思うだろう。
 
-=== Merge Conflicts ===
+=== マージの衝突 ===
 
-For this topic, our computer game analogy becomes too thinly stretched. Instead, let us again consider editing a document.
+この話題のためには、いままでのゲームのたとえはちょっと無理がある。かわりに、文書を編集することをもう一度考えてみよう。
 
-Suppose Alice inserts a line at the beginning of a file, and Bob appends one at the end of his copy. They both upload their changes. Most systems will automatically deduce a reasonable course of action: accept and merge their changes, so both Alice's and Bob's edits are applied.
+Aさんが文書の先頭に行を追加するとする。そしてBさんが自分の手元の同じ文書の最後に行を追加する。そして二人ともその変更をアップロードする。たいていのバージョン管理システムはこの状況を自動的にうまく扱う。両方を受け取って、マージする。そしてAさんとBさんの変更は両方とも適用される。
 
-Now suppose both Alice and Bob have made distinct edits to the same line. Then it is impossible to proceed without human intervention. The second person to upload is informed of a _merge conflict_, and must choose one edit over another, or revise the line entirely.
+こんどは、AとBの両方が同じ行に違う変更を加えるとしよう。この場合は、さすがに人間が解決する必要がある。二番目にアップロードした人は、マージの衝突があったことを知らされるので、AとBのどちらかを選ぶか、あるいはその行をまったく違うように差しかえるかを選ばなきゃいけない。
 
-More complex situations can arise. Version control systems handle the simpler cases themselves, and leave the difficult cases for humans. Usually their behaviour is configurable.
+もっと複雑な状況もありえる。バージョン管理システムは簡単な場合を扱い、難しい場合は人間に任せる。たいていそのふるまいは設定で変えられるようになっている。
