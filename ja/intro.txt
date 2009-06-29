@@ -1,14 +1,14 @@
 == はじめに ==
 
-I'll use an analogy to introduce version control. See http://en.wikipedia.org/wiki/Revision_control[the Wikipedia entry on revision control] for a saner explanation.
+最初に、バージョン管理っていうものを例え話で説明しようと思う。ちゃんとした説明が知りたかったら http://ja.wikipedia.org/wiki/%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0[Wikipediaのバージョン管理システムの項目] を見てみてください。
 
-=== Work is Play ===
+=== 仕事も遊びだ ===
 
-I've played computer games almost all my life. In contrast, I only started using version control systems as an adult. I suspect I'm not alone, and comparing the two may make these concepts easier to explain and understand.
+ぼくのゲーム歴は長い。だけどバージョン管理システムなんてものを使い始めたのはようやく大人になってからだ。そういう人はぼくだけじゃないと思う。だから、この二つを比べることで、説明も理解も簡単になるかもしれない。
 
-Think of editing your code or document, or whatever, as playing a game. Once you've made a lot of progress, you'd like to save. To do so, you click on the "Save" button in your trusty editor.
+ソースコードとか文書、なんでもいいんだけど、それらを編集することを、ゲームをすることに例えて考えてみよう。ゲームをたくさん進めたら、セーブしたくなる。そのためには、エディタの保存ボタンを押せばいい。
 
-But this will overwrite the old version. It's like those old school games which only had one save slot: sure you could save, but you could never go back to an older state. Which was a shame, because your previous save might have been right at an exceptionally fun part of the game that you'd like to revisit one day. Or worse still, your current save is in an unwinnable state, and you have to start again.
+でもそうすると古いバージョンは上書きされちゃう。セーブできるスロットが一つしかない古いゲームみたいなもので、確かにセーブできるけど、それより前の状態には決して戻れない。それって困りものだ。もしかすると、前にセーブした時点はそのゲームの中でもとびきりに楽しい、もういっかいやりたいと思うくらいのところかもしれない。もっと悪い場合、いまのセーブ内容は実はハマリ状態になっていて、もういちど最初からやり直さないといけないかもしれない。
 
 === Version Control ===
 
