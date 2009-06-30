@@ -2,82 +2,77 @@
 
 広大なGitコマンドの海にいきなり飛び込む前に、まずは簡単な例で慣れておこう。簡単だけど、十分実用的だ。じっさい、ぼくがGitを使い始めて最初の数ヶ月は、この章にあることは以外は使わなかった。
 
-=== Saving State ===
+=== 状態をセーブする ===
 
-About to attempt something drastic? Before you do, take a snapshot of all files
-in the current directory with:
+なにか思い切った変更をしようとしてるなら、その前に次のコマンドで今のディレクトリの全ファイルのスナップショットをとっておこう。
 
  $ git init
  $ git add .
- $ git commit -m "My first backup"
+ $ git commit -m "最初のバックアップ"
 
-Now if your new edits go awry, run:
+それで、新しい変更がうまくいかなかったらこうすればいい。
 
  $ git reset --hard
 
-to go back to where you were. To save the state again:
+これで元通り。さらにこの状態をセーブしたければ、こうすればいい。
 
- $ git commit -a -m "Another backup"
+ $ git commit -a -m "さらにバックアップ"
 
-==== Add, Delete, Rename ====
+==== 追加、削除、名前変更 ====
 
-The above will only keep track of the files that were present when you first ran *git add*. If you add new files or subdirectories, you'll have to tell Git:
+上でやった作業では、最初に *git add* したときにあったファイルしか追跡してくれない。もしも新しいファイルやディレクトリを追加した場合は、次のコマンドでGitに教えてあげよう。
 
  $ git add NEWFILES...
 
-Similarly, if you want Git to forget about certain files, maybe because you've deleted them:
+同じように、たとえば削除したファイルとかについてGitに追跡をやめてもらいたいときは、こうすればい。
 
  $ git rm OLDFILES...
 
-Renaming a file is the same as removing the old name and adding the new name. There's also the shortcut *git mv* which has the same syntax as the *mv* command. For example:
+ファイルの名前変更は、ファイルを削除して新しい名前のファイルを作るのと同じだ。ショートカットとして *git mv* というコマンドもある。使い方は普通のmvコマンドといっしょで、たとえばこうすればいい。
 
  $ git mv OLDFILE NEWFILE
 
-=== Advanced Undo/Redo ===
+=== より進んだアンドゥとリドゥ ===
 
-Sometimes you just want to go back and forget about every change past a certain point because they're all wrong. Then:
+ある時点に戻って、それ以降の変更をぜんぶなかったことにしたいことがある。ある時点での変更以降で内容が壊れてしまったときとか。そういうときはまずこうする。
 
  $ git log
 
-shows you a list of recent commits, and their SHA1 hashes. Next, type:
+最近のコミットとそのSHA1ハッシュ値の一覧が表示されるので、次にこう打つ。
 
  $ git reset --hard SHA1_HASH
 
-to restore the state to a given commit and erase all newer commits from the record permanently.
+こうするとそのコミット時点の状態に戻り、それ以降のコミットの記録は完全に削除される。
 
-Other times you want to hop to an old state briefly. In this case, type:
+そのほか、古い時点の状態をちょっとだけ見てみたいときもある。そういうときはこうすればいい。
 
  $ git checkout SHA1_HASH
 
-This takes you back in time, while preserving newer commits. However, like time travel in a science-fiction movie, if you now edit and commit, you will be in an alternate reality, because your actions are different to what they were the first time around.
+これで、それ以降の新しいコミットの状態も保ったまま、古い時点に戻ることができる。ただし、SFの時間旅行と同じで、もしその状態から何か変更してコミットしたら、それはこれまでとは違うもう一つの現実になる。なぜなら、その変更は当初の時点で行われたものとは違うからだ。
 
-This alternate reality is called a 'branch', and <<branch,we'll have more to say about this later>>. For now, just remember that
+このもう一つの現実はブランチと呼ばれる。そして <<ブランチについては後でまた見ることになる>>. ひとまずは、現在に戻りたかったらこうすればいい。
 
  $ git checkout master
 
-will take you back to the present. Also, to stop Git complaining, always
-commit or reset your changes before running checkout.
+ただし、そうする前にそれまでの変更をコミットするかリセットするかしておこう。さもないGitに文句をいわれる。
 
-To take the computer game analogy again:
+ゲームのたとえ話に戻ると、こうなる。
 
-- *`git reset --hard`*: load an old save and delete all saved games newer than the one just loaded.
+- *`git reset --hard`*: 古いセーブデータを呼び出して、それより新しいすべてのデータを消すこと。
 
-- *`git checkout`*: load an old game, but if you play on, the game state will deviate from the newer saves you made the first time around. Any saved games you make now will end up in a separate branch representing the alternate reality you have entered. <<branch,We deal with this later>>.
+- *`git checkout`*: 古いセーブデータを呼び出す。ただし、そこからゲームを続けると、状態は当初の履歴とはだんだんずれていく。その状態でセーブすると、もう一つの現実に対応するようなブランチができる。 <<ブランチについては後でまた扱う>>.
 
-You can choose only to restore particular files and subdirectories by appending them after the command:
+特定のファイルやディレクトリだけを選ぶこともできる。コマンドの後に指定してやればいい。
 
  $ git checkout SHA1_HASH some.file another.file
 
-Take care, as this form of *checkout* can silently overwrite files. To
-prevent accidents, commit before running any checkout command, especially when
-first learning Git. In general, whenever you feel unsure about any operation, Git command or not, first run *git commit -a*.
+この形の *checkout* は、ひそかにファイルを上書きするので気をつけよう. 事故を防ぎたかったら、checkout する前に必ず commit したほうがいい。とくに、Gitに不慣れなうちは。一般には、何が起こるか確かでない操作をする前は、それがGitコマンドかどうかにかかわらず、まず *git commit -a* するべきだ。
 
-Don't like cutting and pasting hashes? Then use:
+SHA1ハッシュ値をカット＆ペーストするのがいやなら、こういう手もある。
 
- $ git checkout :/"My first b"
+ $ git checkout :/"最初のバ"
 
-to jump to the commit that starts with a given message.
-You can also ask for the 5th-last saved state:
+こうすると、コミットメッセージがその文字列で始まるコミットに戻れる。最後から５番目にセーブした状態をとってくることもできる。こうすればいい。
 
  $ git checkout master~5
 
