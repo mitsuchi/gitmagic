@@ -103,9 +103,9 @@ Gitで管理されたプロジェクトのコピーは、こうやれば手に�
 
 *clone* コマンドについてはまた後でいっぱい扱う予定。
 
-=== The Bleeding Edge ===
+=== 最新の状態を手に入れる ===
 
-If you've already downloaded a copy of a project using *git clone*, you can upgrade to the latest version with:
+*git clone* でプロジェクトのコピーを手に入れたら、次のコマンドでファイルを最新の状態に更新できる。
 
  $ git pull
 
