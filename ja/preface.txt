@@ -1,5 +1,5 @@
 = Gitの魔法 =
-ベン・リン
+ben lynn
 2007年8月
 
 == まえがき ==
@@ -27,7 +27,7 @@ Dustin Sallings, Alberto Bertogli, James Cameron, Douglas Livingstone,
 ichael Budde, Richard Albury, Tarmigan, Derek Mahar, Frode Aannevik, 
 Keith Rarick へ、助言と改善をありがとう。Daniel Baumann へは、Debianパッケージの作成とメンテナンスを、JunJie, Meng とJiangWei へは中国語への翻訳を、Rodrigo Toledo へは、スペイン語の翻訳を感謝します。 [もし漏れてたら教えてください。この節を更新するのをよく忘れるんです]
 
-支えてはげましてくれたたくさんの人に感謝します。これが実物の本だったら、みんなの寛大な言葉を宣伝用のコピーとして載せたのに！まじめな話、みんなのそれぞれのメッセージに深く感謝しています。読むたびに気分が晴れやかになります。
+支えてはげましてくれたたくさんの人に感謝します。これが実物の本だったら、みんなの寛大な言葉を宣伝用のコピーとして載せたのに！まじめな話、みんなのそれぞれのメッセージに深く感謝しています。読むたびに晴れやかな気分になります。
 
 .Gitが使えるフリーのホスティング
 
@@ -39,7 +39,7 @@ Keith Rarick へ、助言と改善をありがとう。Daniel Baumann へは、D
 
 === ライセンス ===
 
-このガイドは http://www.gnu.org/licenses/gpl-3.0.html[GNU GPL バージョン3] のライセンスに基づいて公開している。当然ながらソースはGitで管理しているので、次のコマンドを打てば入手できる。
+このガイドは http://www.gnu.org/licenses/gpl-3.0.html[GNU GPL バージョン3] のライセンスに基づいて公開している。当然ながらソースはGitで管理しているので、次のコマンドを打つことで入手できる。
 
  $ git clone git://repo.or.cz/gitmagic.git  # Creates "gitmagic" directory.
 
