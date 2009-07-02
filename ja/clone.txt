@@ -1,0 +1,126 @@
+== クローンを作る ==
+
+古いバージョン管理システムでは、ファイルを手に入れるためのふつうの方法はチェックアウトだった。指定した保存状態のファイル群をそれで入手することができる。
+
+Gitや他の分散バージョン管理システムでは、かわりにクローンを作るのがふつうだ。ファイルを入手するのに、レポジトリ全体のクローンを作る。言い換えると、実質的に中央サーバをミラーリングするってことだ。中央レポジトリでできることならなんでも、そこでもできる。
+
+=== コンピュータどうしを同期する ===
+
+ぼくが最初にGitを使った理由はこれだった。tarballを作ったり *rsync* でバックアップや簡単な同期をするのも確かにできる。でも、ときにはノートパソコンで、また別のときにはデスクトップでというふうに編集していると、両者が食い違っていってしまう。
+
+そんなときは、Gitレポジトリを初期化してファイル群をコミットしよう。それから別のコンピュータ上で以下を実行する。
+
+ $ git clone other.computer:/path/to/files
+
+これで、ファイル群とGitレポジトリの二つ目のコピーができる。これ以降は、
+
+ $ git commit -a
+ $ git pull other.computer:/path/to/files HEAD
+
+とすれば、他方のコンピュータの状態を手元に引っぱってくることができる。もしも同じファイルで変更がぶつかっていたらGitはそれを教えてくれるので、衝突を解決した後でコミットし直す必要がある。
+
+=== Classic Source Control ===
+
+Initialize a Git repository for your files:
+
+ $ git init
+ $ git add .
+ $ git commit -m "Initial commit"
+
+On the central server, initialize an empty Git repository with some name,
+and start the Git daemon if necessary:
+
+ $ GIT_DIR=proj.git git init
+ $ git daemon --detach  # it might already be running
+
+For Git hosting services, follow the instructions to setup the initially
+empty Git repository. Typically one fills in a form on a webpage.
+
+Push your project to the central server with:
+
+ $ git push git://central.server/path/to/proj.git HEAD
+
+We're ready. To check out source, a developer types
+
+ $ git clone git://central.server/path/to/proj.git
+
+After making changes, the code is checked in to the main server by:
+
+ $ git commit -a
+ $ git push
+
+If the main server has been updated, the latest version needs to be checked out before the push. To sync to the latest version:
+
+ $ git commit -a
+ $ git pull
+
+==== Push versus pull ====
+
+We mostly avoid pushing into a repository, because confusion can ensue
+if the destination has a working directory with changes. However, pushing into
+a bare repository is a straightforward operation and more suitable than a pull
+in this case.
+
+Pulling from the server requires shelling into the server, and also
+knowing the network address of the machine you happen to be working on.
+Furthermore, firewalls may interfere.
+
+=== Forking a Project ===
+
+Sick of the way a project is being run? Think you could do a better job? Then on your server:
+
+ $ git clone git://main.server/path/to/files
+
+Next tell everyone about your fork of the project at your server.
+
+At any later time, you can merge in the changes from the original project with:
+
+ $ git pull
+
+=== Ultimate Backups ===
+
+Want numerous tamper-proof geographically diverse redundant archives? If your project has many developers, don't do anything! Every clone of your code is effectively a backup. Not just of the current state, but of your project's entire history. Thanks to cryptographic hashing, if anyone's clone becomes corrupted, it will be spotted as soon as they try to communicate with others.
+
+If your project is not so popular, find as many servers as you can to host clones.
+
+The truly paranoid should always write down the latest 20-byte SHA1 hash of the HEAD somewhere safe. It has to be safe, not private. For example, publishing it in a newspaper would work well, because it's hard for an attacker to alter every copy of a newspaper.
+
+=== Light-Speed Multitask ===
+
+Say you want to work on several features in parallel. Then commit your project and run:
+
+ $ git clone . /some/new/directory
+
+Git exploits hard links and file sharing as much as safely possible to create this clone, so it will be ready in a flash, and you can now work on two independent features simultaneously. For example, you can edit one clone while the other is compiling.
+
+At any time, you can commit and pull changes from the other clone.
+
+ $ git pull /the/other/clone HEAD
+
+=== Guerilla Version Control ===
+
+Are you working on a project that uses some other version control system, and you sorely miss Git? Then initialize a Git repository in your working directory:
+
+ $ git init
+ $ git add .
+ $ git commit -m "Initial commit"
+
+then clone it:
+
+ $ git clone . /some/new/directory
+
+Now go to the new directory and work here instead, using Git to your heart's content. Once in a while, you'll want to sync with everyone else, in which case go to the original directory, sync using the other version control system, and type:
+
+ $ git add .
+ $ git commit -m "Sync with everyone else"
+
+Then go to the new directory and run:
+
+ $ git commit -a -m "Description of my changes"
+ $ git pull
+
+The procedure for giving your changes to everyone else depends on the other version control system. The new directory contains the files with your changes. Run whatever commands of the other version control system are needed to upload them to the central repository.
+
+The *git svn* command automates the above for Subversion repositories, and can
+also be used to
+http://google-opensource.blogspot.com/2008/05/export-git-project-to-google-code.html[export a Git project to a Subversion repository].
