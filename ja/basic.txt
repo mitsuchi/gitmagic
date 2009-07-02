@@ -101,7 +101,7 @@ Gitで管理されたプロジェクトのコピーは、こうやれば手に�
 
  $ git clone git://git.or.cz/gitmagic.git
 
-*clone* コマンドについてはまた後でいっぱい扱う予定。
+*clone* コマンドについてはまた後でくわしく見ていこう。
 
 === 最新の状態を手に入れる ===
 
@@ -109,75 +109,70 @@ Gitで管理されたプロジェクトのコピーは、こうやれば手に�
 
  $ git pull
 
-=== Instant Publishing ===
+=== 公開も簡単 ===
 
-Suppose you've written a script you'd like to share with others. You could just tell them to download from your computer, but if they do so while you're improving the script or making experimental changes, they could wind up in trouble.  Of course, this is why release cycles exist. Developers may work on a project frequently, but they only make the code available when they feel it is presentable.
+みんなに公開したいと思うようなスクリプトを書いたとしよう。その場合、単に自分のサーバからダウンロードしてもらってもいいけど、そうすると、スクリプトをよくするためとか、ちょっと実験するためにいじりちゅうのときにダウンロードされると、問題を起こすはめになる。もちろん、だからリリースのサイクルってものが必要になる。開発者はプロジェクトを頻繁に進めるけど、それを公にするのは発表するに足るなと感じたときだけだ。
 
-To do this with Git, in the directory where your script resides:
+これをGitでやるには、スクリプトのあるディレクトリでこうする。
 
  $ git init
  $ git add .
- $ git commit -m "First release"
+ $ git commit -m "最初のリリース"
 
-Then tell your users to run:
+そして、以下のコマンドを実行して、スクリプトをダウンロードするようにみんなに伝えればいい。
 
  $ git clone your.computer:/path/to/script
 
-to download your script. This assumes they have ssh access. If not, run *git daemon* and tell your users to instead run:
+これは、他のユーザがsshでアクセスできることを前提にしてる。そうじゃなければ、*git daemon* を実行してから、代わりに以下のコマンドを打ってもらうように頼もう。
 
  $ git clone git://your.computer/path/to/script
 
-From now on, every time your script is ready for release, execute:
+これ以降は、リリースの準備ができるたびに以下のコマンドを打てばいい。
 
- $ git commit -a -m "Next release"
+ $ git commit -a -m "次のリリース"
 
-and your users can upgrade their version by changing to the directory containing your script and typing:
+そうしたら他のユーザは、スクリプトのあるディレクトリで以下を実行すればバージョンアップできる。
 
  $ git pull
 
-Your users will never end up with a version of your script you don't want them to see. Obviously this trick works for anything, not just scripts.
+変更途中の、見られたくないスクリプトがみんなに渡ることはこれでなくなる。当たり前だけど、この方法はスクリプトだけじゃなくて他のどんな場合でも使える。
 
-=== What Have I Done? ===
+=== どんな変更をしたのか？ ===
 
-Find out what changes you've made since the last commit with:
+最後のコミットからどんな変更があったかを知りたい場合はこうしよう。
 
  $ git diff
 
-Or since yesterday:
+あるいは、昨日以降の変更が知りたければこう。
 
  $ git diff "@{yesterday}"
 
-Or between a particular version and 2 versions ago:
+特定のバージョンと、最後から２世代前との間の比較なら、こう。
 
  $ git diff SHA1_HASH "master~2"
 
-In each case the output is a patch that can be applied with *git apply*.
-Try also:
+どの場合も、出力結果はパッチの形式になっていて、 *git apply* でそれを適用することができる。次のコマンドも試してほしい。
 
  $ git whatchanged --since="2 weeks ago"
 
-Often I'll browse history with http://sourceforge.net/projects/qgit[qgit]
-instead, due to its slick photogenic interface, or
-http://jonas.nitro.dk/tig/[tig], a text-mode interface that works well over
-slow connections. Alternatively, install a web server, run *git instaweb* and
-fire up any web browser.
+代わりに、ぼくはよく with http://sourceforge.net/projects/qgit[qgit] で履歴を見たりする。かっこよくて見た目がいいからね。または、通信速度が遅い環境でも大丈夫なテキストベースの http://jonas.nitro.dk/tig/[tig] とか。さらには、ウェブサーバをインストールして *git instaweb* を実行すれば、ブラウザからでもアクセスすることもできる。
 
-=== Exercise ===
+=== 練習問題 ===
 
-Let A, B, C, D be four successive commits where B is the same as A except some files have been removed. We want to add the files back at D and not at B. How can we do this?
+A, B, C, D を連続した４つのコミットとしよう。BはAからファイルをいくつか消したものだ。いま、Dにその消されたファイルを追加したい（Bじゃなく）。どうすればいい？
 
-There are at least three solutions. Assuming we are at D:
+やり方は少なくとも３つある。いま自分がDにいるとして、
 
-  1. The difference between A and B are the removed files. We can create a patch representing this difference and apply it:
+  1. AとBの違いは消されたファイルだけだ。その差分をあらわすパッチをつくって適用してやればいい。
 
    $ git diff B A | git apply
 
-  2. Since we saved the files back at A, we can retrieve them:
+  2. Aにはファイルが残っているので、必要なものだけとってきてやればいい。
 
    $ git checkout A FILES...
 
-  3. We can view going from A to B as a change we want to undo:
+  3. AからBへの変化をアンドゥしてやればいい。
 
    $ git revert B
 
-Which choice is best? Whichever you prefer most. It is easy to get what you want with Git, and often there are many ways to get it.
+どれが一番いいだろう？どれでも好きなやつでいい。Gitで何かをするのは簡単だし、やり方はたいていいくつかある。
