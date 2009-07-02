@@ -1,0 +1,49 @@
+= Gitの魔法 =
+ベン・リン
+2007年8月
+
+== まえがき ==
+
+http://git.or.cz/[Git] はスイス製の万能ナイフみたいなバージョン管理システムだ。多機能で多目的で頼れるツールで、あまりになんでもできすぎるので最初は学ぶのがやっかいかもしれない。ましてやマスターするのはもっと大変だ。
+
+アーサー・C・クラークがいったように、十分に発達した技術は魔法と区別がつかない。これはGitに近づくいい方法だ。初心者は内部のしくみは無視して、Gitを、友達を驚かせたり、そのすごい能力で敵を怒らせたりするような謎の仕掛けだと思えばいい。
+
+詳細に立ち入るかわりに、ここでは特定の効果についてのおおまかな説明をしようと思う。繰り返して使ううちに、その内部の仕組みや、やりたいことをどうやってやればいいかもだんだん分かるようになる。
+
+.翻訳
+
+ - http://docs.google.com/View?id=dfwthj68_675gz3bw8kj[中国語(簡略版)]: by JunJie, Meng and JiangWei. Hosted by Google Docs.
+ - link:/~blynn/gitmagic/intl/es/[スペイン語]: by Rodrigo Toledo.
+
+.その他の形式
+
+ - link:book.html[一枚のウェブページ]: 骨組みだけのHTMLでCSSとかはなし。
+ - link:book.pdf[PDFファイル]: 印刷用に。
+ - http://packages.debian.org/search?searchon=names&keywords=gitmagic[Debianパッケージ]: このサイトを手近にコピーしておこう。 http://packages.ubuntu.com/jaunty/gitmagic[Ubuntuパッケージ(Jaunty Jackalope)] でもいい。 http://csdcf.stanford.edu/status/[このサイトがメンテナンスでつながらないとき] に便利だ。
+
+=== 謝辞 ===
+
+Dustin Sallings, Alberto Bertogli, James Cameron, Douglas Livingstone,
+ichael Budde, Richard Albury, Tarmigan, Derek Mahar, Frode Aannevik, 
+Keith Rarick へ、助言と改善をありがとう。Daniel Baumann へは、Debianパッケージの作成とメンテナンスを、JunJie, Meng とJiangWei へは中国語への翻訳を、Rodrigo Toledo へは、スペイン語の翻訳を感謝します。 [もし漏れてたら教えてください。この節を更新するのをよく忘れるんです]
+
+支えてはげましてくれたたくさんの人に感謝します。これが実物の本だったら、みんなの寛大な言葉を宣伝用のコピーとして載せたのに！まじめな話、みんなのそれぞれのメッセージに深く感謝しています。読むたびに気分が晴れやかになります。
+
+.Gitが使えるフリーのホスティング
+
+ - http://repo.or.cz/[http://repo.or.cz/] ではフリーのプロジェクトを管理できる.Gitの最初のホスティングサイトだ。Gitの最初期の開発者が、作成、運営してる。
+ - http://gitorious.org/[http://gitorious.org/] でも同じようにオープンソースプロジェクトをGitで管理できる。
+ - http://github.com/[http://github.com/] では、オープンソースのプロジェクトは無料で、非公開のものは有料でGit管理ができる。
+
+このガイドを掲載してくれていることを、それぞれのサイトに深く感謝します。
+
+=== ライセンス ===
+
+このガイドは http://www.gnu.org/licenses/gpl-3.0.html[GNU GPL バージョン3] のライセンスに基づいて公開している。当然ながらソースはGitで管理しているので、次のコマンドを打てば入手できる。
+
+ $ git clone git://repo.or.cz/gitmagic.git  # Creates "gitmagic" directory.
+
+または、以下のミラーのどれかからでもいい。
+
+ $ git clone git://github.com/blynn/gitmagic.git
+ $ git clone git://gitorious.org/gitmagic/mainline.git
