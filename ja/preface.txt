@@ -1,5 +1,5 @@
 = Gitの魔法 =
-ben lynn
+Ben Lynn
 2007年8月
 
 == まえがき ==
