@@ -27,7 +27,7 @@ Gitを初期化して、レポジトリにファイル群を追加しよう。
  $ git add .
  $ git commit -m "最初のコミット"
 
-それから中央サーバで、同じ名前の空のGitレポジトリを作る。必要ならGitデーモンを走らせておこう。
+それから中央サーバで、好きな名前の空のGitレポジトリを作る。必要ならGitデーモンを走らせておこう。
 
  $ GIT_DIR=proj.git git init
  $ git daemon --detach  # すでに別のが動いてることもある
@@ -54,68 +54,63 @@ Gitのホスティングサービスを使ってる場合は、サイトの指�
 
 ==== プッシュ vs プル ====
 
-レポジトリにプッシュすることはたいてい避けられる。なんでかっていうと、プッシュされる側に作業ディレクトリがあって、しかも最後のコミットから変更があったりする場合に混乱が起きるからだ。でも、裸のレポジトリにプッシュするのは簡単で、プルするよりもこの場合は目的にかなう。
+レポジトリにプッシュするってことはあまり行われない。なんでかっていうと、プッシュされる側に作業ディレクトリがあって、しかも最後のコミットから変更があったりする場合に混乱が起きるからだ。でも、裸のレポジトリにプッシュするのは簡単で、プルするよりもこの場合は目的にかなう。
 
-Pulling from the server requires shelling into the server, and also
-knowing the network address of the machine you happen to be working on.
-Furthermore, firewalls may interfere.
+サーバからプルしてくるためには、そのサーバでシェルを利用できる必要がある。それと、作業用のコンピュータのIPアドレスも知ってなきゃいけない。それに、ファイアーウォールがじゃまをするかもしれない。
 
-=== Forking a Project ===
+=== プロジェクトを枝分かれさせる ===
 
-Sick of the way a project is being run? Think you could do a better job? Then on your server:
+何かのプロジェクトの進み方にうんざりして、自分ならもっとうまくできるのにって思ったりするかもしれない。そういうときはまずプロジェクトのクローンを作ろう。
 
  $ git clone git://main.server/path/to/files
 
-Next tell everyone about your fork of the project at your server.
+それからみんなに、自分のサーバでプロジェクトを枝分かれさせたことを伝えよう。
 
-At any later time, you can merge in the changes from the original project with:
+もともとのプロジェクトで変更があった場合でも、次のようにすればいつでもその変更を取りこめる。
 
  $ git pull
 
-=== Ultimate Backups ===
+=== 究極のバックアップ ===
 
-Want numerous tamper-proof geographically diverse redundant archives? If your project has many developers, don't do anything! Every clone of your code is effectively a backup. Not just of the current state, but of your project's entire history. Thanks to cryptographic hashing, if anyone's clone becomes corrupted, it will be spotted as soon as they try to communicate with others.
+ファイル群のバックアップが欲しいとしよう。それも、複数あって勝手に中身が変わることがなく、地理的にも離れた場所にあるようなのが欲しいとする。もしプロジェクトに開発者がたくさん参加してるなら、実はもうそれだけでいい。コードのそれぞれのクローンが、実用的なバックアップになっている。しかも単に現在の状態だけじゃなく、プロジェクトの全履歴がバックアップされてるのだ。暗号学的なハッシュのおかげで、だれかのクローンが壊れてしまったとしても、他と通信があった時点ですぐに発見される。
+もしプロジェクトがそれほど有名じゃなければ、できるだけ多くのサーバを見つけてクローンをつくっておこう。
 
-If your project is not so popular, find as many servers as you can to host clones.
+もし本当に気になるなら、HEADの最新の20バイトのSHA1ハッシュ値をどこか安全な場所に書いておくといい。秘密にするんじゃなくて、安全にしよう。たとえば新聞に載せちゃってもいい。もし悪さをしようとする人がいても、新聞ぜんぶの紙面を後から変えるのはさすがに難しいだろうから。
 
-The truly paranoid should always write down the latest 20-byte SHA1 hash of the HEAD somewhere safe. It has to be safe, not private. For example, publishing it in a newspaper would work well, because it's hard for an attacker to alter every copy of a newspaper.
+=== 光速で同時に ===
 
-=== Light-Speed Multitask ===
-
-Say you want to work on several features in parallel. Then commit your project and run:
+いくつかの主要な機能を並行して開発したいとしよう。そのためには、現在のプロジェクトをまずコミットしてからこう打つ。
 
  $ git clone . /some/new/directory
 
-Git exploits hard links and file sharing as much as safely possible to create this clone, so it will be ready in a flash, and you can now work on two independent features simultaneously. For example, you can edit one clone while the other is compiling.
+Gitはハードリンクやファイルの共有をできる限りうまく利用しようとする。なのでクローンは一瞬でできる。そしたら、あとは独立した二つの機能を同時に開発していくことができる。たとえば、片方をコンパイルしてる間に、もう片方をいじることもできる。
 
-At any time, you can commit and pull changes from the other clone.
+いつでもコミットして、他のクローンでの変更を取り込むことができる。こうすればいい。
 
  $ git pull /the/other/clone HEAD
 
-=== Guerilla Version Control ===
+=== ゲリラ的なバージョン管理 ===
 
-Are you working on a project that uses some other version control system, and you sorely miss Git? Then initialize a Git repository in your working directory:
+参加してるプロジェクトで使ってるバージョン管理システムがGitじゃなくてとても残念に思うことがあったりしないだろうか。そんなときは自分の作業ディレクトリでGitレポジトリを初期化しよう。
 
  $ git init
  $ git add .
- $ git commit -m "Initial commit"
+ $ git commit -m "最初のコミット"
 
-then clone it:
+そしたらそれをクローンする:
 
  $ git clone . /some/new/directory
 
-Now go to the new directory and work here instead, using Git to your heart's content. Once in a while, you'll want to sync with everyone else, in which case go to the original directory, sync using the other version control system, and type:
+クローンした先の新しいディレクトリに移って、そこでGitを使って開発を進めよう。ときどき他の開発者との間で同期をとりたくなったら、もとのディレクトリに戻って、別のバージョン管理システムで同期をとった上で、こうする。
 
  $ git add .
- $ git commit -m "Sync with everyone else"
+ $ git commit -m "みんなと同期をとった"
 
-Then go to the new directory and run:
+それから新しいディレクトリに移って、以下を実行しよう。
 
- $ git commit -a -m "Description of my changes"
+ $ git commit -a -m "自分の変更に関する記述"
  $ git pull
 
-The procedure for giving your changes to everyone else depends on the other version control system. The new directory contains the files with your changes. Run whatever commands of the other version control system are needed to upload them to the central repository.
+自分の変更をみんなのものに反映させる手順は、その別のバージョン管理システムによって変わってくる。新しいディレクトリには自分の変更したファイルがある。別のバージョン管理システムでの適切なコマンドを使って、それらを中央サーバのレポジトリにアップロードしよう。
 
-The *git svn* command automates the above for Subversion repositories, and can
-also be used to
-http://google-opensource.blogspot.com/2008/05/export-git-project-to-google-code.html[export a Git project to a Subversion repository].
+*git svn* コマンドは上の手順をSubversionoのレポジトリについて自動化してくれる。そして、 http://google-opensource.blogspot.com/2008/05/export-git-project-to-google-code.html[GitプロジェクトをSubversionレポジトリに変換する] ためにも使うことができる。
