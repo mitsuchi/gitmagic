@@ -19,47 +19,42 @@ Gitや他の分散バージョン管理システムでは、かわりにクロ�
 
 とすれば、他方のコンピュータの状態を手元に引っぱってくることができる。もしも同じファイルで変更がぶつかっていたらGitはそれを教えてくれるので、衝突を解決した後でコミットし直す必要がある。
 
-=== Classic Source Control ===
+=== 古典的なソース管理 ===
 
-Initialize a Git repository for your files:
+Gitを初期化して、レポジトリにファイル群を追加しよう。
 
  $ git init
  $ git add .
- $ git commit -m "Initial commit"
+ $ git commit -m "最初のコミット"
 
-On the central server, initialize an empty Git repository with some name,
-and start the Git daemon if necessary:
+それから中央サーバで、同じ名前の空のGitレポジトリを作る。必要ならGitデーモンを走らせておこう。
 
  $ GIT_DIR=proj.git git init
- $ git daemon --detach  # it might already be running
+ $ git daemon --detach  # すでに別のが動いてることもある
 
-For Git hosting services, follow the instructions to setup the initially
-empty Git repository. Typically one fills in a form on a webpage.
+Gitのホスティングサービスを使ってる場合は、サイトの指示にしたがって空のレポジトリを作ってほしい（たいていはそれ用のフォームに入力して作る）。
 
-Push your project to the central server with:
+次のコマンドでプロジェクトを中央サーバにプッシュしよう。
 
  $ git push git://central.server/path/to/proj.git HEAD
 
-We're ready. To check out source, a developer types
+これで準備完了。ソースを持ってくるには、開発者はこう打てばいい。
 
  $ git clone git://central.server/path/to/proj.git
 
-After making changes, the code is checked in to the main server by:
+いろいろ変更してから、ソースコードを次のようにして中央サーバに上げ直す。
 
  $ git commit -a
  $ git push
 
-If the main server has been updated, the latest version needs to be checked out before the push. To sync to the latest version:
+もしも中央サーバの方が更新されてたら、手元のをプッシュする前に最新版に上げる必要がある。最新版に同期するためにはこうしよう。
 
  $ git commit -a
  $ git pull
 
-==== Push versus pull ====
+==== プッシュ vs プル ====
 
-We mostly avoid pushing into a repository, because confusion can ensue
-if the destination has a working directory with changes. However, pushing into
-a bare repository is a straightforward operation and more suitable than a pull
-in this case.
+レポジトリにプッシュすることはたいてい避けられる。なんでかっていうと、プッシュされる側に作業ディレクトリがあって、しかも最後のコミットから変更があったりする場合に混乱が起きるからだ。でも、裸のレポジトリにプッシュするのは簡単で、プルするよりもこの場合は目的にかなう。
 
 Pulling from the server requires shelling into the server, and also
 knowing the network address of the machine you happen to be working on.
