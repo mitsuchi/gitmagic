@@ -65,20 +65,20 @@
 
 言いかえると、古い状態にチェックアウトした後は、自動的に名前のないブランチに切り替わる。それに名前をつけて保存するには *git checkout -b* とすればいい。
 
-=== Quick Fixes ===
+=== サクッと修正 ===
 
-You're in the middle of something when you are told to drop everything and fix a newly discovered bug:
+もし何かの作業の途中で、それを中断して新しく見つかったバグを直すように言われたらこうしよう。
 
- $ git commit -a
- $ git checkout -b fixes SHA1_HASH
+$ git commit -a
+$ git checkout -b fixes SHA1_HASH
 
-Then once you've fixed the bug:
+そしてバグを修正したらこうする。
 
- $ git commit -a -m "Bug fixed"
- $ git push  # to the central repository
+ $ git commit -a -m "バグを直した"
+ $ git push  # 中央サーバへ
  $ git checkout master
 
-and resume work on your original task.
+そして元の作業を再開しよう。
 
 === Uninterrupted Workflow ===
 
