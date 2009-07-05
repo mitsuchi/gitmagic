@@ -80,42 +80,42 @@ $ git checkout -b fixes SHA1_HASH
 
 そして元の作業を再開しよう。
 
-=== Uninterrupted Workflow ===
+=== 中断のないワークフロー ===
 
-Some projects require your code to be reviewed before you may submit it. To make life easier for those reviewing your code, if you have a big change to make you might break it into two or more parts, and get each part separately reviewed.
+プロジェクトによっては、コードを事前にレビューすることがある。その場合、レビューする人たちがやりやすいように、大きな変更を２つか３つの小さな変更に分けて、それぞれを順番にレビューしてもらうってことはあるかもしれない。
 
-What if the second part cannot be written until the first part is approved and checked in? In many version control systems, you'd have to send the first part to the reviewers, and then wait until it has been approved before starting on the second part.
+でももし、１つめが承認されて取り込まれるまで２つめを書けないとしたらどうだろう？多くのバージョン管理システムでは、１つめをレビュアーに送ったら、それが承認されるまで２つめに手をつけるのを待たなきゃいけない。
 
-Actually that's not quite true, but in these systems editing Part II before submitting Part I involves suffering and hardship. In Git, branching and merging are painless (a technical term for fast and local). So after you've committed the first part and sent it for review:
+まあ実際にはちょっと違うけど、でもこれらのシステムでは１つめが取り込まれる前に２つめを編集するのはめんどくさいし難しい。Gitならブランチを作るのもマージするのにも痛みがない（速くて手軽っていうこと）。なので、１つめをコミットしてレビュアーに送った後はこうしよう。
 
  $ git checkout -b part2
 
-Next, code the second part of the big change without waiting for the first part to be accepted. When the first part is approved and submitted,
+次に、１つめが承認されるのを待たずに２つめの変更作業にかかろう。１つめが承認されて取り込まれたらこうすればいい。
 
  $ git checkout master
  $ git merge part2
- $ git branch -d part2  # don't need this branch anymore
+ $ git branch -d part2  # このブランチはもういらない
 
-and the second part of the change is ready to review.
+そして２つめの変更をレビューしてもらう。
 
-But wait! What if it wasn't that simple? Say you made a mistake in the first part, which you have to correct before submitting. No problem! First, switch back to the master branch with
+でも、ことはそんなに簡単じゃないかもしれない。たとえば、１つめで何か間違いをしたとしよう。そしたら取り込まれる前に修正しなきゃならない。でも大丈夫。そんなときは、まず次のコマンドでマスターブランチに切り戻そう。
 
  $ git checkout master
 
-Fix the issue with the first part of the change and hope it gets approved. If not we simply repeat this step. You'll probably want to merge the fixed version of Part I into Part II as well:
+ひとつめの変更に関わる部分を修正して、承認されるのを待とう。承認されなかったら、単にこのステップを繰り返せばいい。１つめに関するこの修正は、２つめのほうにも当然マージしたいだろうから、こうしよう。
 
  $ git checkout part2
  $ git merge master
 
-Now it's the same as before. Once the first part has been approved and submitted:
+これで後は最初の場合と同じだ。もしも１つめが承認されて取り込まれたら、こうすればいい。
 
  $ git checkout master
  $ git merge part2
  $ git branch -d part2
 
-and again, the second part is ready to be reviewed.
+そして再び、２つめの変更はレビュー待ちになる。
 
-It's easy to extend this trick for any number of parts.
+分割がいくつになっても、このやり方を拡張するのは簡単なことだ。
 
 === Reorganizing a Medley ===
 
