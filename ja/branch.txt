@@ -102,7 +102,7 @@ $ git checkout -b fixes SHA1_HASH
 
  $ git checkout master
 
-ひとつめの変更に関わる部分を修正して、承認されるのを待とう。承認されなかったら、単にこのステップを繰り返せばいい。１つめに関するこの修正は、２つめのほうにも当然マージしたいだろうから、こうしよう。
+１つめの変更に関わる部分を修正して、承認されるのを待つ。承認されなかったら、単にこのステップを繰り返せばいい。１つめに関するこの修正は、２つめのほうにも当然マージしたいだろうから、こうしよう。
 
  $ git checkout part2
  $ git merge master
@@ -115,39 +115,33 @@ $ git checkout -b fixes SHA1_HASH
 
 そして再び、２つめの変更はレビュー待ちになる。
 
-分割がいくつになっても、このやり方を拡張するのは簡単なことだ。
+分割がいくつになっても、このやり方は簡単に拡張できる。
 
-=== Reorganizing a Medley ===
+=== よせ集めをきれいに作り直す ===
 
-Perhaps you like to work on all aspects of a project in the same branch. You want to keep works-in-progress to yourself and want others to see your commits only when they have been neatly organized. Start a couple of branches:
+プロジェクトのあらゆる側面についての開発をひとつの同じブランチでやりたいってのはありそうなことだ。その際、自分にとっては開発中の状態を維持したまま、他の人にはきちんと編成されたコミットだけを見せたいとする。そんなときは、対になる２つのブランチから始めよう。
 
-  $ git checkout -b sanitized
-  $ git checkout -b medley
+  $ git checkout -b sanitized (訳注：消毒済みブランチ)
+  $ git checkout -b medley　　(訳注：よせ集めブランチ)
 
-Next, work on anything: fix bugs, add features, add temporary code, and so forth, committing often along the way. Then:
+それから、よせ集めブランチ上で、なんでも好きなことをしよう。バグを修正したり、新しい機能を追加したり、一時的なコードを足したり。その際、途中ではまめにコミットしよう。それからこうする。
 
   $ git checkout sanitized
   $ git cherry-pick SHA1_HASH
 
-applies a given commit to the "sanitized" branch. With appropriate cherry-picks you can construct a branch that contains only permanent code, and has related commits grouped together.
+こうやってよせ集めブランチでのコミットを指定すると、それが消毒済みブランチに適用される。うまいことつまみ食い(cherry-pick)してやれば、一時的なコードは含まれず、互いに関連のあるコミットだけを含むようなブランチをうまく構成することができる。
 
-=== Managing Branches ===
+=== ブランチを管理する ===
 
-List all branches by typing:
+次のコマンドでブランチを一覧表示しよう。
 
  $ git branch
 
-There is always a branch named "master", and you start here by default. Some
-advocate leaving the "master" branch untouched and creating new branches for
-your own edits.
+その中には必ず「master」という名前のブランチがある。これはデフォルトで出発点となるものだ。masterブランチにはさわらず、新しいブランチを作ってそれをいじるべきだという人もいる。
 
-The *-d* and *-m* options allow you to delete and move (rename) branches.
-See *git help branch*.
+*-d* や *-m* といったオプションをつけることで、ブランチを消したり名前を変更することができる。詳しくは *git help branch* してみてほしい。
 
-The "master" branch is a useful convention. Others may assume that your
-repository has a branch with this name, and that it contains the official
-version of your project. You can rename or obliterate the "master" branch, but
-you might as well respect this custom.
+masterブランチは決めごととして便利だ。だれかのレポジトリには必ずその名前のブランチがあって、そのプロジェクトの公式なバージョンが入ってると想定することができる。masterブランチは、名前を変更したり跡形もなく消したりすることもできるけど、この慣習を尊重したほうがよさそうだ。
 
 === Temporary Branches ===
 
