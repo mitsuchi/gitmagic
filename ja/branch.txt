@@ -159,12 +159,10 @@ stashで保存する一時領域は複数もつことができるし、いろん
 
 === やりたいように仕事をしよう ===
 
-Applications such as http://www.mozilla.com/[Mozilla Firefox] allow you to open multiple tabs and multiple windows. Switching tabs gives you different content in the same window. Git branching is like tabs for your working directory. Continuing this analogy, Git cloning is like opening a new window. Being able to do both improves the user experience.
+ http://www.mozilla.com/[Mozilla Firefox] みたいなアプリケーションでは、複数のタブとウインドウを開くことができる。タブを切り替えることで、同じウインドウでも異なるコンテンツが表示される。Gitのブランチは、作業ディレクトリ上でこういうタブを作るのに似てる。もうちょっと続けると、クローンを作るのは新しいウインドウを開くみたいなものだ。どちらもユーザの操作は改善される。
 
-On a higher level, several Linux window managers support multiple desktops.
-Branching in Git is similar to switching to a different desktop, while cloning
-is similar to attaching another monitor to gain another desktop.
+より上のレイヤでいうと、Linuxのいくつかのウインドウマネージャでは、複数の仮想デスクトップを使うことができる。この例だと、Gitでブランチを作るのは仮想デスクトップを切り替えるようなもので、クローンを作るのはモニタをもう一台持ってくるのに似てる。
 
-Yet another example is the http://www.gnu.org/software/screen/[*screen*] utility. This gem lets you create, destroy and switch between multiple terminal sessions in the same terminal. Instead of opening new terminals (clone), you can use the same one if you run *screen* (branch). In fact, you can do a lot more with *screen* but that's a topic for another text.
+さらに例をあげるなら http://www.gnu.org/software/screen/[*screen*] コマンドはどうだろう。これを使うと、同じ端末から複数のセッションを作ったり消したり切り替えたりできる。新しい端末を開く(＝クローンを作る)代わりに、*screen* を使えば(ブランチを作れば)同じ端末を使うことができる。実際には *screen* ではもっといろんなことができるけど、それはまた別の話だ。
 
-Cloning, branching, and merging are fast and local in Git, encouraging you to use the combination that best suits you. Git lets you work exactly how you want.
+Gitでは、クローンやブランチを作ったりマージしたりするのは速くて手軽だ。一番自分に合う組み合わせを使えばいい。Gitを使えば、望むとおりに仕事をすることができる。
