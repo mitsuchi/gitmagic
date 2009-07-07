@@ -143,31 +143,21 @@ $ git checkout -b fixes SHA1_HASH
 
 masterブランチは決めごととして便利だ。だれかのレポジトリには必ずその名前のブランチがあって、そのプロジェクトの公式なバージョンが入ってると想定することができる。masterブランチは、名前を変更したり跡形もなく消したりすることもできるけど、この慣習を尊重したほうがよさそうだ。
 
-=== Temporary Branches ===
+=== 一時的なブランチ ===
 
-After a while you may realize you are creating short-lived branches
-frequently for similar reasons: every other branch merely serves to
-save the current state so you can briefly hop back to an older state to
-fix a high-priority bug or something.
+Gitをしばらく使っていると、寿命の短いブランチを似たような理由で作りがちだってことに気がつくかもしれない。いまの状態を単に保存しておいて、新しく見つかった緊急のバグ修正かなにかをするためにいったん古いバージョンに戻る、みたいな場合に。
 
-It's analogous to changing the TV channel temporarily to see what else is on.
-But instead of pushing a couple of buttons, you have to create, check out and
-delete temporary branches and commits. Luckily, Git has a shorcut that
-is as convenient as a TV remote control:
+例えるなら、テレビを見てるときに、他の局で何をやってるかみるためにチャンネルをちょっとだけ変えるみたいな話だ。でも、テレビなら単にボタンをいくつか押すだけですむけど、Gitの場合はまず一時的なブランチを作って、チェックアウトして、削除して、コミットしないといけない。幸いなことに、Gitにはこのためのショートカットがあってリモコン並に便利だ。
 
  $ git stash
 
-This saves the current state in a temporary location (a 'stash') and
-restores the previous state. Your working directory appears exactly as it was
-before you started editing, and you can fix bugs, pull in upstream changes, and
-so on. When you want to go back to the stashed state, type:
+こうすると、いまの状態が一時的な場所(訳注：stash＝隠し場所）に保存されたうえで、状態は一つ前にもどる。作業ディレクトリは変更を始める前とまったく同じ状態になるので、あとはバグを修正するなり、上流の変更を取り込むなりすればいい。一時的に保存されてる方の状態に戻りたいと思ったらこうしよう。
 
- $ git stash apply  # You may need to resolve some conflicts.
+ $ git stash apply  # いくつかマージの衝突を解決しないといけなくなるかも
 
-You can have multiple stashes, and manipulate them in various ways. See
-*git help stash*. As you may have guessed, Git maintains branches behind the scenes to perform this magic trick.
+stashで保存する一時領域は複数もつことができるし、いろんな方法で扱うことができる。詳しくは *git help stash* としてほしい。想像のとおり、Gitはこの魔法みたいな仕掛けを、ブランチを使って実現してる。
 
-=== Work How You Want ===
+=== やりたいように仕事をしよう ===
 
 Applications such as http://www.mozilla.com/[Mozilla Firefox] allow you to open multiple tabs and multiple windows. Switching tabs gives you different content in the same window. Git branching is like tabs for your working directory. Continuing this analogy, Git cloning is like opening a new window. Being able to do both improves the user experience.
 
